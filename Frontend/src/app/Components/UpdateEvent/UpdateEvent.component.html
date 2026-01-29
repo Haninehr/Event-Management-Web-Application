@@ -1,0 +1,149 @@
+<div class="create-event-form-wrapper">
+  <h2>Modifier l'événement</h2>
+
+  <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+    <div class="create-event-form-wrapper-content">
+
+      <mat-form-field appearance="outline">
+        <mat-label>Titre</mat-label>
+        <mat-icon matIconSuffix>title</mat-icon>
+        <input matInput formControlName="title" required />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <mat-icon matIconSuffix>description</mat-icon>
+        <textarea matInput formControlName="description" rows="5"></textarea>
+      </mat-form-field>
+
+      <div class="date-time-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Date</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="eventDate" required />
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Heure</mat-label>
+          <input matInput type="time" formControlName="eventTime" required />
+          <mat-icon matIconSuffix>access_time</mat-icon>
+        </mat-form-field>
+      </div>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Lieu</mat-label>
+        <input matInput formControlName="location" />
+        <mat-icon matIconSuffix>location_on</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field >
+        <mat-label>Type d'événement</mat-label>
+        <mat-select formControlName="type" required>
+          <mat-option value="CONCERT">Concert</mat-option>
+          <mat-option value="FORMATION">Formation</mat-option>
+          <mat-option value="CONFERENCE">Conférence</mat-option>
+          <mat-option value="JOURNECULTURELLE">Journé Culturelle</mat-option>
+          <mat-option value="JOURNESCIENTIFIQUE">Journé Scientifique</mat-option>
+        </mat-select>
+        <mat-icon matIconSuffix>category</mat-icon>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Places maximum</mat-label>
+        <input matInput type="number" formControlName="maxcapacity" min="1" />
+        <mat-icon matIconSuffix>people_alt</mat-icon>
+        <!-- Message d'erreur personnalisé -->
+  <mat-error *ngIf="eventForm.get('maxcapacity')?.hasError('minParticipants')">
+    Impossible de réduire sous {{ currentParticipantCount }} places 
+    ({{ currentParticipantCount }} participant{{ currentParticipantCount > 1 ? 's' : '' }} déjà inscrit{{ currentParticipantCount > 1 ? 's' : '' }})
+  </mat-error>
+
+  <mat-error *ngIf="eventForm.get('maxcapacity')?.hasError('required')">
+    Ce champ est requis
+  </mat-error>
+      </mat-form-field>
+ 
+      <!-- === MÉDIAS EXISTANTS (URLs seulement) === -->
+      <div class="existing-media" *ngIf="currentMedias.length > 0">
+        <label>Médias actuels ({{ currentMediaUrls.length }}/5)</label>
+        <div class="media-grid"> 
+          <div class="media-item" *ngFor="let media of currentMedias; let i = index">
+            <p class="media-title">{{media.title}}</p>
+            <ng-container>
+              
+              <img *ngIf="isImage(media.url)" [src]="'http://localhost:8085' + media.url" class="thumbnail" alt="image">
+              <video *ngIf="isVideo(media.url)" [src]="'http://localhost:8085' +media.url" controls class="thumbnail"></video>
+              <div *ngIf="!isImage(media.url) && !isVideo(media.url)" class="document-preview">
+                <mat-icon>{{ getFileIconFromUrl(media.url) }}</mat-icon>
+                <span>{{ getFileName(media.url) }}</span>
+              </div>
+            </ng-container>
+
+            <button mat-icon-button color="warn" (click)="removeExistingMedia(i)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- === AJOUT DE NOUVEAUX FICHIERS === -->
+      <div class="file-upload-container" *ngIf="(currentMedias.length + selectedFiles.length) < 5">
+        <label>Nouveaux fichiers ({{ 5 - (currentMedias.length + selectedFiles.length) }} places restantes)</label>
+
+        <div class="upload-box"
+             (click)="fileInput.click()"
+             (drop)="onDrop($event)"
+             (dragover)="onDragOver($event)"
+             [class.drag-over]="isDragOver">
+          
+          <input #fileInput type="file" multiple hidden (change)="onFilesSelected($event)" />
+
+          <mat-icon class="upload-icon">cloud_upload</mat-icon>
+          <span class="upload-text">
+            {{ selectedFiles.length > 0
+                ? selectedFiles.length + ' fichier(s) sélectionné(s)'
+                : 'Glissez vos fichiers ici ou cliquez' }}
+          </span>
+          <span class="upload-hint">
+            Max 10 Mo • Jusqu’à {{ 5 - (currentMediaUrls.length + selectedFiles.length) }} fichiers
+          </span>
+        </div>
+
+        <div class="files-preview" *ngIf="selectedFiles.length > 0">
+          <div class="file-item" *ngFor="let item of selectedFiles; let i = index">
+            <mat-icon [ngClass]="getFileIconClass(item.file)">{{ getFileIcon(item.file) }}</mat-icon>
+            <div class="file-info">
+              <div class="file-name">{{ item.file.name }}</div>
+              <div class="file-size">{{ formatFileSize(item.file.size) }}</div>
+               <!-- Title input for this media -->
+                <mat-form-field appearance="outline" class="media-title-field" style="color: black;">
+                  <mat-label>Titre du média (ex: Affiche)</mat-label>
+                  <input matInput [(ngModel)]="item.title" [ngModelOptions]="{standalone: true}"
+                    placeholder="ex: Affiche, Programme..." required />
+                  <mat-error *ngIf="!item.title.trim()">Titre obligatoire</mat-error>
+                </mat-form-field>
+            </div>
+            <button mat-icon-button color="warn" (click)="removeFile(i)">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="(currentMediaUrls.length + selectedFiles.length) >= 5" class="warning-text">
+        Limite de 5 médias atteinte
+      </div>
+
+    </div>
+
+    <div class="actions">
+      <button mat-stroked-button type="button" class="go-back-btn" (click)="goBack()">Annuler</button>
+      <button mat-raised-button color="primary" type="submit" class="update-btn"
+              [disabled]="eventForm.invalid || isSubmitting"    [class.loading]="isSubmitting">
+        <span *ngIf="!isSubmitting">Mettre à jour</span>
+        <mat-spinner diameter="24" *ngIf="isSubmitting"></mat-spinner>
+      </button>
+    </div>
+  </form>
+</div>

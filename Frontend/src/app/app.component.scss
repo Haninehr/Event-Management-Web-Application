@@ -1,0 +1,98 @@
+html
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;  }
+
+.spacer { flex: 1 1 auto; }
+
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  color: white;
+
+   button{
+        letter-spacing: 0.5px;
+    font-weight: 700;
+  }
+
+  button:after {    
+  background: none repeat scroll 0 0 transparent;
+  bottom: 0;
+  content: "";
+  display: block;
+  height: 2px;
+  left: 50%;
+  position: absolute;
+  background: #fff;
+  transition: width 0.3s ease 0s, left 0.3s ease 0s;
+  width: 0;
+}
+button:hover:after { 
+  width: 100%; 
+  left: 0; 
+}
+}
+
+.login-container, .signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+}
+
+.events-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.event-card {
+  margin: 16px 0;
+  cursor: pointer;
+  transition: transform 0.2s;
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 17px rgba(0,0,0,0.2);
+  }
+}
+
+.notificationbell {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+
+
+
+
+.action {
+  position: fixed;
+  bottom: 50px;
+  text-align: center;
+  right: 50px;
+  width: 50px;
+  height: 50px;
+  background: transparent;
+  border: 2px solid white;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 5px 5px rgba(0,0,0,0.1);
+}
+.action span {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  
+  color: #ffffff;
+  font-size: 2em;
+  font-weight:700;
+  transition: .3s ease-in-out;
+}
+
+.action:hover span{
+    color: #a13dea;
+}
+
+

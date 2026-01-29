@@ -1,0 +1,70 @@
+server:
+  port: 8085
+
+spring:
+  application:
+    name: gateway-service
+  
+  cloud:
+    gateway:
+      globalcors:
+        corsConfigurations:
+          '[/**]':
+            allowedOrigins: "http://localhost:4200"
+            allowedMethods: "*"
+            allowedHeaders: "*"
+            allowCredentials: true
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin Access-Control-Allow-Credentials
+     
+      discovery:
+        locator:
+          enabled: false             
+          lower-case-service-id: true
+      routes:
+        - id: authentification-service
+          uri: lb://authentification-service   
+          predicates:
+            - Path=/authentifications/**
+          filters:
+            - StripPrefix=0
+
+        - id: event-service
+          uri: lb://event-service
+          predicates:
+            - Path=/events/**,/uploads/events-media/**
+          filters:
+            - StripPrefix=0
+
+        - id: registration-service
+          uri: lb://registration-service
+          predicates:
+            - Path=/registrations/**
+          filters:
+            - StripPrefix=0
+
+        - id: notification-service
+          uri: lb://notification-service
+          predicates:
+            - Path=/notifications/**
+          filters:
+            - StripPrefix=0
+
+jwt:
+  secret: 2XZCFpmx0gac8Obn7LVsXtxpT36eCKVBGEbXg3luFuN2
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    fetch-registry: true
+    register-with-eureka: true
+  instance:
+    prefer-ip-address: true
+
+
+logging:
+  level:
+    org.springframework.cloud.gateway: TRACE
+    reactor.netty: INFO

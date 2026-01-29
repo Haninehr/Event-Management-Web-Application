@@ -1,0 +1,125 @@
+<div class="Organisateur-Dashboard">
+  <h1>Dashboard Organisateur</h1>
+
+  <div class="row">
+    <div class="row-70">
+
+
+      <h2>Mes événements</h2>
+
+
+      <!-- Loading Spinner (3 seconds) -->
+      <div class="loader-p" *ngIf="isLoading">
+        <!--<mat-spinner diameter="60"></mat-spinner>
+      <p>Chargement des événements...</p>-->
+
+        <div class="loader">
+          Loading...
+          <div class="ball"></div>
+          <div class="ball"></div>
+          <div class="ball"></div>
+          <div class="ball"></div>
+        </div>
+      </div>
+
+      <div class="events-no-available" style="text-align: center;"
+        *ngIf="!isLoading && (!myEvents || myEvents.length === 0)">
+        <h1>
+          😔 No Events available !
+        </h1>
+      </div>
+      <div class="events-grid" *ngIf="!isLoading && eventsWithParticipantCount.length > 0">
+        <mat-card class="event-card" *ngFor="let item of eventsWithParticipantCount" [routerLink]="['/events', item.event.id]">
+          <mat-card-title>{{ item.event.title }}</mat-card-title>
+          <mat-card-content>
+
+            <p class="event-datetime"><img src="time.png" class="event-datetime-img" /> <span>{{ item.event.eventTime}} - {{
+                item.event.eventDate | date:'dd/MM/yyyy' }}</span></p>
+            <p class="event-location"><img src="location-white.png" class="event-location-img" /> <span>{{
+                item.event.location
+                }}</span> </p>
+            <p class="event-discription">{{ item.event.description }}</p>
+            <p><strong>Type :</strong> {{ item.event.type }}</p>
+            <p><strong>Participants :</strong> {{ item.participantCount || 0 }} / {{item.event.maxcapacity}}</p>
+          
+
+
+            <ng-container *ngIf="item.event.status !== 'ACTIVE'">
+              <p class="event-status" [ngClass]="{
+       'status-canceled': item.event.status === 'CANCELED',
+       'status-ended': item.event.status === 'ENDED'
+     }">
+                <strong>
+                  <span *ngIf="item.event.status === 'CANCELED'">❌ CANCELED</span>
+                  <span *ngIf="item.event.status === 'ENDED'">✔️ ENDED</span>
+                </strong>
+              </p>
+            </ng-container>
+            <!---stop propagation to prevent go to detail event when click on edit button !!-->
+            <button mat-mini-fab
+              *ngIf="this.authService.isLoggedIn() && this.authService.isOrganizer()  && item.event.status=='ACTIVE'"
+              color="accent" class="edit-fab" aria-label="Modifier l'événement" (click)="$event.stopPropagation()"
+              [routerLink]="['/update', item.event.id]" (click)="undefined">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </mat-card-content>
+        </mat-card>
+
+
+      </div>
+
+
+    </div>
+    <div class="row-30">
+      <div class="row-stats">
+
+
+        <div class="stat totale">
+          <div>
+            <span>Totale Events</span>
+          </div>
+          <div>
+            <span class="number">{{this.totalEvents || 0}}</span>
+          </div>
+
+        </div>
+
+        <div class="stat upcoming">
+          <div>
+            <span>Upcoming Events</span>
+          </div>
+          <div>
+            <span class="number">{{this.activeEvents}}</span>
+          </div>
+
+        </div>
+
+        <div class="stat canceled">
+          <div>
+            <span>Canceled Events</span>
+          </div>
+          <div>
+            <span class="number">{{this.canceledEvents}}</span>
+          </div>
+
+        </div>
+
+        <!-- Nouvelle statistique : Moyenne de participation -->
+        <div class="stat average-participation">
+          <div>
+            <span>Moyenne participants / événement</span>
+          </div>
+          <div>
+            <span class="number">{{this.averageParticipation}}</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+
+
+
+</div>

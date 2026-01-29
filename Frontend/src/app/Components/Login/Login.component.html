@@ -1,0 +1,27 @@
+<div class="login-container">
+  
+<div id="algn">
+    <div id="container">
+        <p class="head">Login</p>
+        <form  class="input-container" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+            <input type="email" matInput formControlName="email"  placeholder="Enter email" class="inpt" required>
+            <input matInput type="password" formControlName="password" placeholder="Enter password" class="inpt" required>
+           
+            <button mat-raised-button  value="submit"
+            [class.loading]="isSubmitting"
+             class="btn" [disabled]="loginForm.invalid || this.isSubmitting">Login</button>
+        </form>
+        <p class="footer">Don't have account? <a routerLink="/signup">Register</a></p>
+
+         
+    </div>
+    </div>
+
+    <footer >
+        <p>© 2025 — Rouibah Hanine</p>
+    </footer>
+     
+  </div>
+
+
+  

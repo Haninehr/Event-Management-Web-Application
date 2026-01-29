@@ -1,0 +1,413 @@
+
+
+.create-event-form-wrapper {
+  max-width: 700px;
+    margin: 1rem auto;
+    padding: 1rem;
+  background: transparent;
+  border-radius: 16px;
+  box-shadow: 0 8px 32px rgba(255, 255, 255, 0.1);
+
+  @media (max-width: 640px) {
+    margin: 1rem;
+    padding: 1.5rem;
+    border-radius: 12px;
+  }
+
+
+  .create-event-form-wrapper-content{
+    padding: 1rem;
+    overflow-y: auto;
+    display: flex;
+    gap: 1.6rem;
+    flex-direction: column;
+    overflow-x: hidden;
+    height: 420px;
+  }
+
+  form{
+    display: flex;
+    flex-direction: column;
+  }
+
+  h2 {
+    margin: 0 0 1.3rem;
+    text-align: center;
+    font-size: 1.9rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    color: var(--mat-sys-on-surface, #ffffff);
+  }
+
+  
+
+  
+
+  
+  ::ng-deep mat-form-field {
+    width: 100%;
+
+    // Bigger, more comfortable input text
+    .mat-mdc-form-field-input-control,
+    .mat-mdc-text-field-wrapper .mat-mdc-form-field-input-control {
+      font-size: 1.05rem !important;
+      padding: 10px !important;
+    }
+
+    // Outline style + nicer focus
+    &.mat-focused .mat-mdc-outline {
+      border-color: var(--mat-sys-primary, #3f51b5);
+    }
+  }
+
+  // Textarea height
+  ::ng-deep textarea.mat-mdc-input-element {
+    min-height: 110px;
+    resize: vertical;
+  }
+
+  // ───── Custom file upload (beautiful & fully styled) ─────
+  .file-upload-container {
+  .upload-box {
+    position: relative;
+    border: 2.5px dashed var(--mat-sys-outline, #e0e0e0);
+    border-radius: 16px;
+    background: var(--mat-sys-surface-container-low, #f8f9fa);
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &.drag-over {
+      border-color: var(--mat-sys-primary, #3f51b5);
+      background: var(--mat-sys-surface-container, #f0f4ff);
+    }
+
+    &:hover {
+      border-color: var(--mat-sys-primary, #3f51b5);
+      background: var(--mat-sys-surface-container, #f5f5f5);
+    }
+
+    .upload-icon {
+      font-size: 3.5rem;
+      width: 3.5rem;
+      height: 3.5rem;
+      color: var(--mat-sys-primary, #3f51b5);
+      margin-bottom: 1rem;
+    }
+
+    .upload-text {
+      display: block;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: var(--mat-sys-on-surface, #1a1a1a);
+      margin-bottom: 0.5rem;
+    }
+
+    .upload-hint {
+      font-size: 0.9rem;
+      color: var(--mat-sys-on-surface-variant, #666);
+    }
+  }
+
+  .files-preview {
+    margin-top: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .file-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: var(--mat-sys-surface-container, #f8f9fa);
+    border-radius: 12px;
+    border: 1px solid var(--mat-sys-outline, #e0e0e0);
+
+    .file-type-icon {
+      font-size: 2.2rem;
+      width: 3.05rem !important;
+      height: 2.2rem;
+      margin-right: 1rem;
+      &.image { color: #4caf50; }
+      &.video { color: #f44336; }
+      &.pdf  { color: #d32f2f; }
+      &.doc  { color: #1976d2; }
+      &.file { color: #666; }
+    }
+
+    .file-info {
+      flex: 1;
+      .file-name {
+        font-weight: 500;
+        font-size: 0.95rem;
+        color: var(--mat-sys-on-surface, #1a1a1a);
+      }
+      .file-size {
+        font-size: 0.8rem;
+        color: var(--mat-sys-on-surface-variant, #616060);
+      }
+    }
+
+    .remove-btn {
+      width: 36px;
+      height: 36px;
+      color: red;
+      line-height: 0px;
+
+      mat-icon:hover{
+        font-weight: 900;
+      }
+    }
+  }
+}
+
+// === MÉDIAS EXISTANTS ===
+.existing-media {
+  margin-top: 1rem;
+
+  label {
+    display: block;
+    margin-bottom: 0.75rem;
+    font-weight: 600;
+    color: #ffffff;
+  }
+}
+
+.media-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 2.5rem;
+}
+
+.media-item {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  //background: #f9f9f9;
+
+  .media-title{
+    font-weight: 700;
+    text-align: center;
+    font-size: 17.5px;
+  }
+  .thumbnail {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    display: block;
+  }
+
+  video.thumbnail {
+    background: #000;
+  }
+
+  .document-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 140px;
+    padding: 1rem;
+    text-align: center;
+    color: #555;
+    gap: 0.5rem;
+
+    mat-icon {
+      font-size: 48px;
+      width: 48px;
+      height: 48px;
+      color: #777;
+    }
+
+    span {
+      font-size: 0.9rem;
+      word-break: break-all;
+    }
+  }
+
+  button[mat-icon-button] {
+    position: absolute;
+    top: 75px;
+    right: 8px;
+    background: rgb(255, 0, 0);
+    color: white;
+    z-index: 10;
+
+    &:hover {
+      
+      scale: (1.05);
+    }
+  }
+}
+// Icônes colorées selon type
+.image { color: #4caf50; }
+.video { color: #f44336; }
+.pdf   { color: #d32f2f; }
+.doc   { color: #1976d2; }
+.file  { color: #777; }
+
+
+.warning-text {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: #fff8e1;
+  border: 1px solid #ffca28;
+  border-radius: 8px;
+  color: #e65100;
+  text-align: center;
+  font-weight: 500;
+}
+.actions {
+    display: flex;
+    gap:25px;
+}
+
+  .update-btn {
+   margin-top: 1.35rem;
+    min-width: 50px;
+    padding: 0 1.5rem;
+    height: 52px;
+    align-self: center;
+    width: 300px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border: 2px solid white;
+    letter-spacing: 0.5px;
+    border-radius: 12px;
+    text-transform: none;
+
+    @media (max-width: 480px) {
+      width: 100%;
+      align-self: stretch;
+    }
+  }
+
+  .update-btn:hover{
+    color: #18c29c;
+  }
+
+  .go-back-btn {
+   margin-top: 1.35rem;
+    min-width: 50px;
+    padding: 0 1.5rem;
+    height: 52px;
+    align-self: center;
+    width: 150px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    border: 2px solid white;
+    letter-spacing: 0.5px;
+    border-radius: 12px;
+    text-transform: none;
+
+    @media (max-width: 480px) {
+      width: 100%;
+      align-self: stretch;
+    }
+  }
+
+  .go-back-btn:hover{
+    color: #ff9100;
+  }
+}
+
+
+
+
+.participant-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: #e65100;
+
+  mat-icon {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+  }
+}
+
+
+
+mat-select, mat-option {
+   
+    backdrop-filter: blur(8px);
+   
+  }
+
+
+  .mat-mdc-option.mdc-list-item {
+   
+    backdrop-filter: blur(8px);
+    transition: all 3ms ease;
+ 
+}
+.mat-mdc-option.mdc-list-item:hover{
+  border: 2px solid white;
+  border-radius: 5px;
+  font-weight: 600;
+  font-size: 1.3em;
+  color: #18c29c;
+  
+}
+
+
+
+button {
+  position: relative; // Important pour le positionnement du spinner
+  padding-right: 0px; // Espace pour le spinner
+  transition: background-color 0.3s ease;
+
+  &.loading {
+    //background-color: #ccc;
+    cursor: not-allowed;
+
+    // Le spinner (pseudo-élément ::after)
+    &::after {
+      content: "";
+      position: absolute;
+      border-radius: 100%;
+      right: 0px;           // Position finale
+      top: 40%;
+      width: 15px;           // Taille finale
+      height: 15px;
+      margin-top: 0px;      // Centrage vertical précis (14px / 2 = 7px)
+      border: 4px solid rgba(255, 255, 255, 0.5);
+      border-left-color: #fff;
+      border-top-color: #fff;
+
+      // Animation : d'abord grandir (grow), puis tourner en boucle
+      animation: 
+        grow 0.3s forwards ease-out,
+        spin 0.6s 0.3s infinite linear; // spin commence après grow
+    }
+  }
+}
+
+// Animation de rotation
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Animation d'apparition et agrandissement du spinner
+@keyframes grow {
+  from {
+    width: 0;
+    height: 0;
+    margin-top: -2px;
+    right: 6px;
+  }
+  to {
+    width: 14px;
+    height: 14px;
+    margin-top: -7px;
+    right: 13px;
+  }
+}

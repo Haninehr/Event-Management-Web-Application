@@ -1,0 +1,425 @@
+.signup-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  font-family: 'Roboto', sans-serif;
+  user-select: none;
+}
+
+.signup-card {
+  max-width: 460px;
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
+  
+  overflow: hidden;
+
+  mat-card-header {
+   
+    padding: 40px 30px 25px 30px;
+    text-align: center;
+    margin: -24px -24px 30px -24px;
+
+    mat-card-title {
+      
+      font-size: 32px;
+      font-weight: 500;
+      margin: 0;
+      letter-spacing: 1px;
+      text-shadow: 0 3px 6px rgba(0,0,0,0.3);
+    }
+  }
+
+  mat-card-content {
+    padding: 0 40px 10px 40px;
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 13px;
+
+      mat-form-field {
+        width: 100%;
+
+        .mat-form-field-wrapper {
+          padding-bottom: 8px;
+        }
+
+        &.mat-focused .mat-form-field-label {
+          color: #667eea;
+        }
+
+        .mat-form-field-ripple {
+          background-color: #667eea;
+        }
+
+        .mat-select-value, .mat-select-arrow {
+          color: #667eea;
+        }
+      }
+
+      button {
+        height: 56px;
+        font-size: 19px;
+        font-weight: 500;
+        border-radius: 28px;
+        margin-top: 15px;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+        letter-spacing: 1.2px;
+        box-shadow: 0 8px 15px rgba(102, 126, 234, 0.4);
+
+        &:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 15px 30px rgba(102, 126, 234, 0.5);
+        }
+
+        &[disabled] {
+          background: #ccc;
+          box-shadow: none;
+        }
+      }
+    }
+  }
+
+  mat-card-actions {
+    text-align: center;
+    padding: 0 40px 40px 40px;
+
+    p {
+      margin: 0;
+      font-size: 15px;
+      color: #555;
+
+      a {
+        color: #667eea;
+        font-weight: 600;
+        text-decoration: none;
+        border-bottom: 1px solid #667eea;
+
+        &:hover {
+          color: #764ba2;
+          border-color: #764ba2;
+        }
+      }
+    }
+  }
+}
+
+// Responsive
+@media (max-width: 600px) {
+  .signup-card {
+    max-width: 95%;
+    margin: 20px;
+    border-radius: 16px;
+
+    mat-card-header {
+      padding: 30px 20px 20px;
+    }
+
+    mat-card-content {
+      padding: 0 30px 30px;
+    }
+  }
+}
+
+
+/* signup.component.scss */
+
+/* Full page background */
+.signup-container {
+  color: rgb(255, 255, 255);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  //height: 100vh;
+  //background: linear-gradient(to right, #4e54c8, #8f94fb);
+  //font-family: 'Roboto', sans-serif;
+}
+
+/* Card styling */
+.signup-card {
+  width: 100%;
+  max-width: 450px;
+  padding: 15px 0px 0px 0px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  background-color: #ffffff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+  }
+
+  mat-card-title {
+    text-align: center;
+    font-size: 1.65rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Form styling */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+
+  mat-form-field, mat-select, mat-option {
+    width: 100%;
+    font-size: 1rem;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    color: #ffffff;
+    .mat-form-field-outline {
+      border-radius: 8px;
+    }
+  }
+
+   
+
+  button {
+    margin-top: 1rem;
+    padding: 0.6rem 0;
+    font-size: 1rem;
+    font-weight: 500;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      background-color: #3b3fc8;
+    }
+  }
+}
+
+/* Login link */
+.login-link {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: #666;
+
+  a {
+    color: #4e54c8;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s ease;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .signup-card {
+    margin: 1rem;
+    padding: 1.5rem;
+  }
+
+  mat-card-title {
+    font-size: 1.4rem;
+  }
+}
+
+
+footer {
+    display: block;
+    position: fixed;
+    bottom: 0px;
+    text-align: center;
+    width: 100%;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    user-select: none;
+}
+
+
+
+/******************/
+
+
+#algn{
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#algn #container{
+    border: 2px solid white;
+    border-radius: 10px;
+    width: 400px;
+    //height: 450px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+
+#algn #container .head{
+    font-weight: 800;
+    font-size: 28px;
+    letter-spacing: 0.5px;
+    margin: 20px 0px;
+    color: white;
+}
+
+#algn .input-container{
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+}
+
+#algn .input-container .inpt{
+    padding: 15px;
+    margin: 5px 10px;
+    border: 2px solid white;
+    border-radius: 25px;
+    font-size: 14px;
+    background-color: transparent;
+    color: white;
+}
+
+
+
+::placeholder {
+    font-weight: 600;
+    color: white;
+    opacity: 1;
+}
+
+#algn .rem-forgot{
+    display: flex;
+    justify-content: space-around;
+    column-gap: 10px;
+    font-size: 11px;
+    font-weight: 400;
+    margin: 8px;
+}
+
+#algn .rem{
+    display: flex;
+    align-items: center;
+}
+
+#algn .rem-forgot span a{
+    text-decoration: none;
+    color: white;
+}
+
+#algn .rem-forgot span a:hover{
+    color: #ffc3d2;
+}
+
+#algn .input-container .btn{
+       margin: 20px 12px;
+    padding: 14px 0;
+    border: 2px solid white;
+    border-radius: 25px;
+    font-weight: 800;
+    color: white;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+}
+
+#algn .input-container .btn:hover{
+    background-color: #ffffff00;
+    color: #18c29c;
+    backdrop-filter: blur(5px)
+}
+
+#algn #container .footer{
+    font-size: 14px;
+    font-weight: 400;
+        color: white;
+}
+
+#algn #container .footer a{
+    text-decoration: none;
+    color: white;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    margin: 0 5px;
+    font-size: 15px;
+}
+
+#algn #container .footer a:hover{
+    color: #ffc3d2;
+}
+
+
+
+.cdk-overlay-pane{
+backdrop-filter: blur(5px);
+}
+
+mat-select,mat-option{
+  backdrop-filter: blur(5px);
+}
+
+
+
+
+button {
+  position: relative; // Important pour le positionnement du spinner
+  padding-right: 0px; // Espace pour le spinner
+  transition: background-color 0.3s ease;
+
+  &.loading {
+    //background-color: #ccc;
+    cursor: not-allowed;
+
+    // Le spinner (pseudo-élément ::after)
+    &::after {
+      content: "";
+      position: absolute;
+      border-radius: 100%;
+      right: 0px;           // Position finale
+      top: 40%;
+      width: 15px;           // Taille finale
+      height: 15px;
+      margin-top: 0px;      // Centrage vertical précis (14px / 2 = 7px)
+      border: 4px solid rgba(255, 255, 255, 0.5);
+      border-left-color: #fff;
+      border-top-color: #fff;
+
+      // Animation : d'abord grandir (grow), puis tourner en boucle
+      animation: 
+        grow 0.3s forwards ease-out,
+        spin 0.6s 0.3s infinite linear; // spin commence après grow
+    }
+  }
+}
+
+// Animation de rotation
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+// Animation d'apparition et agrandissement du spinner
+@keyframes grow {
+  from {
+    width: 0;
+    height: 0;
+    margin-top: -2px;
+    right: 6px;
+  }
+  to {
+    width: 14px;
+    height: 14px;
+    margin-top: -7px;
+    right: 13px;
+  }
+}

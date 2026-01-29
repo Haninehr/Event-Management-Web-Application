@@ -1,0 +1,39 @@
+<mat-toolbar color="primary" class="toolbar">
+  <span>Gestion d'Événements - M2 ISII 2025/2026</span>
+  <span class="spacer"></span>
+
+  <app-notificationbell *ngIf="authService.isLoggedIn()" ></app-notificationbell>
+  <button mat-button routerLink="/events">Événements</button>
+
+  <button mat-button *ngIf="authService.isLoggedIn() && authService.isOrganizer()" routerLink="/dashboard">
+    Dashboard
+  </button>
+
+  <button mat-button *ngIf="authService.isLoggedIn()" [matMenuTriggerFor]="menu" >
+    <mat-icon>account_circle</mat-icon>
+    {{ authService.getCurrentUser()?.email || "guest"}}
+  </button>
+
+  <mat-menu #menu="matMenu">
+  <button mat-menu-item routerLink="/profile">
+    <mat-icon>person</mat-icon>
+    <span>Profil</span>
+  </button>
+  <button mat-menu-item (click)="logout()">
+    <mat-icon>logout</mat-icon>
+    <span>Déconnexion</span>
+  </button>
+</mat-menu>
+
+  <button mat-raised-button color="accent" *ngIf="!authService.isLoggedIn()" routerLink="/login">
+    Connexion
+  </button>
+</mat-toolbar>
+
+<router-outlet></router-outlet>
+
+
+
+<div class="action" *ngIf="showCreateEventButton">
+  <span routerLink="/new">+</span>
+</div>

@@ -1,0 +1,45 @@
+<div class="notifications-list-container">
+  <div class="notifications-header">
+    <h2>Notifications</h2>
+    <!-- Optional: add a counter or "Mark all as read" button here if needed -->
+    <!-- <span class="unread-counter">{{ unreadCount }} non lues</span> -->
+  </div>
+
+  <div class="Notifications-cards-container">
+    <div class="notifications-cards" *ngIf="notifications.length > 0; else noNotifications">
+      <div class="notification-card" *ngFor="let notif of notifications" (click)="markAsRead(notif.id, notif.eventid)"
+        [class.unread]="!notif.isread" [class.type-reminder]="notif.type === 'REMINDER'"
+        [class.type-update]="notif.type === 'UPDATE'" [class.type-refuse]="notif.type.toUpperCase().includes('REFUSE')"
+        [class.type-accept]="notif.type.toUpperCase().includes('ACCEPT')"
+        [class.type-registration]="notif.type === 'REGISTRATIONshgdhj'"
+        [class.type-default]="notif.type !== 'REMINDER' && notif.type !== 'REGISTRATION' && notif.type!='UPDATE' && notif.type !== 'REGISTRATION_Refuse' && notif.type!=='REGISTRATION_accept' ">
+
+        <mat-icon class="notif-icon" *ngIf="notif.type === 'REMINDER'">notification_important</mat-icon>
+        <mat-icon class="notif-icon" *ngIf="notif.type === 'UPDATE'">update</mat-icon>
+        <mat-icon class="notif-icon" *ngIf="notif.type === 'REGISTRATION_accept'">person_add</mat-icon>
+        <mat-icon class="notif-icon" *ngIf="notif.type=='REGISTRATION_Refuse'">cancel</mat-icon>
+        <mat-icon class="notif-icon"
+          *ngIf="notif.type !== 'REMINDER' && notif.type !== 'REGISTRATION_Refuse' && notif.type!=='REGISTRATION_accept' && notif.type!='UPDATE'">info</mat-icon>
+
+        <!-- Content -->
+        <div class="notif-content">
+          <div class="notif-title">{{ notif.title }}</div>
+          <div class="notif-message">{{ notif.message }}</div>
+          <!-- Optional debug line (remove in production) -->
+          <!-- <div class="notif-type">Type: {{ notif.type }}</div> -->
+        </div>
+
+        <!-- Optional: unread indicator dot -->
+        <div class="unread-indicator" *ngIf="!notif.isread"></div>
+      </div>
+    </div>
+
+  </div>
+  <!-- Empty state -->
+  <ng-template #noNotifications>
+    <div class="no-notifications">
+      <mat-icon>notifications_off</mat-icon>
+      <p>Aucune notification pour le moment</p>
+    </div>
+  </ng-template>
+</div>

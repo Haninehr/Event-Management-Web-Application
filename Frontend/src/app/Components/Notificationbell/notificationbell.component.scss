@@ -1,0 +1,330 @@
+
+:host {
+  display: block;
+  
+  z-index: 1000;
+}
+
+.only-notif-bell{
+  margin: 10px;
+// 2. Le bouton FAB (la cloche)
+.notificationbell {
+        border: none;
+    background: transparent;
+    color: white;
+
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+    cursor: pointer;
+  &:hover {
+    transform: scale(1.08);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  }
+
+  // Badge qui pulse (uniquement ici)
+  ::ng-deep .mat-badge-content {
+    background: #f44336;
+    color: white;
+    font-weight: 600;
+    border-radius: 60%;
+    font-size: 11px;
+    animation: pulse 2s infinite;
+  }
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+}
+
+// ──────────────────────────────────────────────────────────────
+//  MENU DROPDOWN – uniquement celui ouvert par cette cloche
+// ──────────────────────────────────────────────────────────────
+::ng-deep mat-menu.mat-mdc-menu-panel {
+  // On cible uniquement le menu qui est enfant direct de ce composant
+  max-width: 380px !important;
+  width: 380px;
+  border-radius: 16px !important;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25) !important;
+  margin-top: 12px;
+
+  @media (max-width: 480px) {
+    width: 95vw !important;
+    max-width: none !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
+}
+
+
+// Chaque ligne de notification
+::ng-deep .mat-mdc-menu-item {
+  height: auto !important;
+  min-height: 64px;
+  padding: 12px 20px !important;
+  white-space: normal;
+  line-height: 1.4;
+  border-bottom: 1px solid #eee;
+
+  &:last-child { border-bottom: none; }
+  &:hover { background: #f5f5f5; }
+
+  mat-icon {
+    margin-right: 12px;
+    vertical-align: middle;
+  }
+
+  p {
+    margin: 6px 0 0;
+    font-size: 0.85rem;
+    color: #666;
+  }
+}
+
+// Texte rouge pour les REMINDER non lus
+.text-red {
+  color: #d32f2f !important;
+  font-weight: 600;
+}
+
+// "Aucune notification"
+::ng-deep .mat-mdc-menu-item:not([role="menuitem"]) {
+  opacity: 0.6;
+  font-style: italic;
+  text-align: center;
+  color: #999;
+}
+
+// Mobile très petit
+@media (max-width: 380px) {
+  :host {
+    bottom: 15px;
+    right: 15px;
+  }
+  .notificationbell {
+    transform: scale(0.9);
+  }
+}
+}
+
+// Header violet magnifique
+.notification-header {
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  text-align: center;
+  margin: 0;
+
+  h3 {
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: 600;
+  }
+}
+
+
+
+.only-notif-bell {
+  position: relative;
+
+  .notificationbell {
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    transition: all 0.2s ease;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    // Custom badge styling (override Material default if needed)
+    ::ng-deep .mat-badge-content {
+      font-weight: 600;
+      font-size: 12px;
+      background: #ff4081; // pinkish-red for unread count
+      color: white;
+    }
+  }
+}
+
+::ng-deep .mat-menu-panel {
+  max-width: 360px;
+  width: 360px;
+  border-radius: 12px !important;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  margin-top: 8px;
+
+  .mat-menu-content {
+    padding: 0 !important;
+    background: #ffffff;
+  }
+}
+
+.notification-header {
+  padding: 16px 20px;
+  background: linear-gradient(135deg, #8f40df 0%, #1b3dd3 100%);
+  color: white;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
+  h3 {
+    margin: 0;
+    font-size: 18px;
+  }
+}
+
+// Notification items
+.notification-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 10px 15px;
+  gap: 12px;
+  border-bottom: 1px solid #eee;
+  transition: background 0.2s ease;
+  backdrop-filter: blur(10px);
+  border: 2px solid white;
+  background-color: #bcbcbc;
+  position: relative;
+
+
+  &:hover {
+    background: #f8f9ff;
+  }
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  
+  &.unread {
+    background: #fff8e1; // light amber background for unread
+    font-weight: 500;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: #ff9800;
+      border-radius: 0 4px 4px 0;
+    }
+  }
+
+  // Type-based icon & accent colors
+  &.type-reminder {
+    .mat-icon {
+      color: #ff9800; // Orange
+    }
+    .notif-title {
+      color: #e65100;
+    }
+    &.unread::before {
+      background: #ff9800;
+    }
+  }
+
+  &.type-refuse {
+    .mat-icon {
+      color: #ff5500; // Orange
+    }
+    .notif-title {
+      color: #e65100;
+    }
+    &.unread::before {
+      background: #ff3700;
+    }
+  }
+
+  &.type-update {
+    .mat-icon {
+      color: #092bea; // Orange
+    }
+    .notif-title {
+      color: #0008ff;
+    }
+    &.unread::before {
+      background: #00b3ff;
+    }
+  }
+
+  &.type-registration {
+    .mat-icon {
+      color: #4caf50; // Green
+    }
+    .notif-title {
+      color: #2e7d32;
+    }
+    &.unread::before {
+      background: #4caf50;
+    }
+  }
+
+  // Default type
+  &.type-default {
+    .mat-icon {
+      color: #666;
+    }
+  }
+
+  .notif-content {
+    flex: 1;
+    min-width: 0; // allows text truncation
+  }
+
+  .notif-title {
+    font-weight: 600;
+    font-size: 14px;
+    margin: 0 0 4px 0;
+    display: block;
+    color: #333;
+  }
+
+  .notif-message {
+    margin: 0;
+    font-size: 13px;
+    color: #666;
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .mat-icon {
+    font-size: 20px;
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+}
+
+// Empty state
+.no-notifications {
+  padding: 24px 20px;
+  text-align: center;
+  color: #999;
+  font-style: italic;
+}
+
+.All-notifications{
+
+  padding: 24px 20px;
+  text-align: center;
+  color: #000000;
+  font-weight: 700;
+  font-size: 20px;
+  background-color: white;
+}
+
+.All-notifications:hover{
+  background-color: rgb(0, 0, 0);
+  color: white;
+  border: 2px solid white;
+}

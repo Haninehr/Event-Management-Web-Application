@@ -1,0 +1,38 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run Auth-MS",
+      "type": "shell",
+      "command": "cd Backend/Auth-Ms && mvn spring-boot:run",
+      "group": "none",
+      "presentation": { "reveal": "always" }
+    },
+    {
+      "label": "Run Event-MS",
+      "type": "shell",
+      "command": "cd Backend/Event-Ms && mvn spring-boot:run",
+      "group": "none",
+      "presentation": { "reveal": "always" }
+    },
+    {
+      "label": "Run Registration-MS",
+      "type": "shell",
+      "command": "cd Backend/Registration-Ms && mvn spring-boot:run",
+      "group": "none",
+      "presentation": { "reveal": "always" }
+    },
+    {
+      "label": "Run Notification-MS",
+      "type": "shell",
+      "command": "cd Backend/Notification-Ms && mvn spring-boot:run",
+      "group": "none",
+      "presentation": { "reveal": "always" }
+    },
+    {
+      "label": "Run All Microservices",
+      "dependsOn": ["Run Auth-MS", "Run Event-MS","Run Registration-Ms","Run Notification-Ms"],
+      "problemMatcher": []
+    }
+  ]
+}

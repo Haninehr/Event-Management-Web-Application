@@ -1,0 +1,126 @@
+<div class="create-event-form-wrapper">
+
+  <h2>Créer un événement</h2>
+
+  <form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+    <div class="create-event-form-wrapper-content">
+      <mat-form-field appearance="outline">
+        <mat-label>Titre</mat-label>
+        <mat-icon matIconSuffix>title</mat-icon>
+
+        <input matInput formControlName="title" required />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Description</mat-label>
+        <mat-icon matIconSuffix>description</mat-icon>
+        <textarea matInput formControlName="description" rows="5"></textarea>
+      </mat-form-field>
+
+      <!-- DATE + TIME (side by side on large screens) -->
+      <div class="date-time-row">
+        <mat-form-field appearance="outline">
+          <mat-label>Date</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="eventDate" required />
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Heure</mat-label>
+          <input matInput type="time" formControlName="eventTime" required />
+          <mat-icon matIconSuffix>access_time</mat-icon>
+        </mat-form-field>
+      </div>
+
+
+      <mat-form-field appearance="outline">
+        <mat-label>Lieu</mat-label>
+        <input matInput formControlName="location" />
+        <mat-icon matIconSuffix>location_on</mat-icon>
+      </mat-form-field>
+
+
+      <mat-form-field>
+        <mat-label>Type d'événement</mat-label>
+        <mat-select formControlName="type" required>
+          <mat-option value="CONCERT">Concert</mat-option>
+          <mat-option value="FORMATION">Formation</mat-option>
+          <mat-option value="CONFERENCE">Conférence</mat-option>
+          <mat-option value="JOURNECULTURELLE">Journé Culturelle</mat-option>
+          <mat-option value="JOURNESCIENTIFIQUE">Journé Scientifique</mat-option>
+        </mat-select>
+        <mat-icon matIconSuffix>category</mat-icon>
+      </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Places maximum</mat-label>
+        <input matInput type="number" formControlName="maxcapacity" min="1" placeholder="ex: 100" />
+        <mat-icon matIconSuffix>people_alt</mat-icon>
+
+      </mat-form-field>
+
+      <!-- MULTIPLE FILES UPLOAD (up to 5) -->
+      <div class="file-upload-container">
+        <label><mat-icon>attach_file</mat-icon> Fichiers joints (max. 5)</label>
+
+        <div class="upload-box" (click)="fileInput.click()" (drop)="onDrop($event)" (dragover)="onDragOver($event)"
+          [class.drag-over]="isDragOver">
+
+          <input #fileInput type="file" multiple hidden (change)="onFilesSelected($event)" />
+
+          <mat-icon class="upload-icon">cloud_upload</mat-icon>
+
+          <span class="upload-text">
+            {{ selectedFiles.length > 0
+            ? (selectedFiles.length + ' fichier(s) sélectionné(s)')
+            : 'Glissez vos fichiers ici ou cliquez pour choisir' }}
+          </span>
+
+          <span class="upload-hint">
+            Images, vidéos, PDF, documents • Max 10 Mo chacun • Jusqu’à 5 fichiers
+          </span>
+        </div>
+
+        <!-- Preview List -->
+        <div class="files-preview" *ngIf="selectedFiles.length > 0">
+          <div class="file-item" *ngFor="let item of selectedFiles; let i = index">
+            <mat-icon class="file-type-icon" [ngClass]="getFileIconClass(item.file)">
+              {{ getFileIcon(item.file) }}
+            </mat-icon>
+            <div style="align-items: center;
+    display: flex;"> 
+              <div class="file-info">
+                <div class="file-name">{{ item.file.name }}</div>
+                <div class="file-size">{{ formatFileSize(item.file.size) }}</div>
+
+                <!-- Title input for this media -->
+                <mat-form-field appearance="outline" class="media-title-field">
+                  <mat-label>Titre du média (ex: Affiche)</mat-label>
+                  <input matInput [(ngModel)]="item.title" [ngModelOptions]="{standalone: true}"
+                    placeholder="ex: Affiche, Programme..." required />
+                  <mat-error *ngIf="!item.title.trim()">Titre obligatoire</mat-error>
+                </mat-form-field>
+              </div>
+
+              <button mat-icon-button color="warn" (click)="removeFile(i)" class="remove-btn">
+                <mat-icon>close</mat-icon>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="btn-actions">
+      <button mat-stroked-button type="button" class="go-back-btn submit-btn " (click)="goBack()">Annuler</button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="eventForm.invalid || isSubmitting"
+        class="submit-btn " [class.loading]="isSubmitting">
+        <span *ngIf="!isSubmitting">Créer l'événement</span>
+        <mat-spinner diameter="24" *ngIf="isSubmitting"></mat-spinner>
+      </button>
+    </div>
+
+
+  </form>
+
+</div>

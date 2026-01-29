@@ -1,0 +1,29 @@
+<div class="signup-container">
+  
+    <div id="algn">
+    <div id="container">
+        <p class="head">Inscription</p>
+        <form  class="input-container" [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+          <input  matInput formControlName="username"  placeholder="Enter username" class="inpt" required>
+            <input type="email" matInput formControlName="email"  placeholder="Enter email" class="inpt" required>
+            <input matInput type="password" formControlName="password" placeholder="Enter password" class="inpt" required>
+           
+            <mat-label>Rôle</mat-label>
+        <mat-select formControlName="role" required>
+          <mat-option value="ORGANIZER">Organisateur</mat-option>
+          <mat-option value="PARTICIPANT">Participant</mat-option>
+        </mat-select>
+            <button mat-raised-button  value="submit" 
+            [class.loading]="isSubmitting"
+            class="btn" [disabled]="signupForm.invalid || this.isSubmitting">Créer compte</button>
+        </form>
+        <p class="footer">Déjà un compte ? <a routerLink="/login">Login</a></p>
+
+         
+    </div>
+    </div>
+
+    <footer >
+        <p>© 2025 — Rouibah Hanine</p>
+    </footer>
+</div>

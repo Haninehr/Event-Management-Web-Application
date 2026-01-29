@@ -1,0 +1,111 @@
+<div class="events-container">
+  <h1>Liste des Événements</h1>
+
+  <div class="search-bar">
+    <mat-form-field>
+      <mat-label>Mot-clé</mat-label>
+      <input matInput [(ngModel)]="searchKeyword" (keyup.enter)="search()">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Lieu</mat-label>
+      <input matInput [(ngModel)]="searchLocation" (keyup.enter)="search()">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Date</mat-label>
+      <input matInput [matDatepicker]="picker" [(ngModel)]="searchDate" (dateChange)="search()">
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <button mat-raised-button color="primary" (click)="search()">Rechercher</button>
+  </div>
+
+  <!-- Loading Spinner (3 seconds) -->
+  <div class="loader-p" *ngIf="isLoading">
+    <!--<mat-spinner diameter="60"></mat-spinner>
+    <p>Chargement des événements...</p>-->
+
+    <div class="loader">
+      Loading...
+      <div class="ball"></div>
+      <div class="ball"></div>
+      <div class="ball"></div>
+      <div class="ball"></div>
+    </div>
+  </div>
+
+  <div class="events-no-available" *ngIf="!isLoading && (!filteredEvents || filteredEvents.length === 0)">
+    <h1>
+      😔 No Events available !
+    </h1>
+  </div>
+
+  <div class="events-grid" *ngIf="!isLoading && (filteredEvents && filteredEvents.length > 0)">
+    <mat-card  class="event-card" *ngFor="let event of filteredEvents" [routerLink]="['/events', event.id]">
+      <div class="new_tag" *ngIf="event.isRegistered && authService.isLoggedIn()">
+        Registered
+        <div class="new_tag block1"></div>
+        <div class="new_tag block2"></div>
+      </div>
+      <div class="new_tag" id="canceled" *ngIf="event.isRegistered && authService.isLoggedIn() && event.status=='CANCELED'">
+        Canceled
+        <div class="new_tag block1"></div>
+        <div class="new_tag block2"></div>
+      </div>
+
+      <div class="new_tag" id="tomorrowortoday" *ngIf="event.isRegistered && authService.isLoggedIn() && event.status=='ACTIVE' && parseDateString(event.eventDate)!==null  && parseDateString(event.eventDate)! < tomorrow && parseDateString(event.eventDate)! > today">
+        Tomorrow
+        <div class="new_tag block1"></div>
+        <div class="new_tag block2"></div>
+      </div>
+
+      <div class="new_tag" id="tomorrowortoday" *ngIf="event.isRegistered && authService.isLoggedIn() && event.status=='ACTIVE' && parseDateString(event.eventDate)!==null  && parseDateString(event.eventDate)! < today">
+        Today
+        <div class="new_tag block1"></div>
+        <div class="new_tag block2"></div>
+      </div>
+      <mat-card-header>
+        <mat-card-title>{{ event.title }}</mat-card-title>
+
+      </mat-card-header>
+      <mat-card-content>
+        <p class="event-datetime"><img src="time.png" class="event-datetime-img" /> <span>{{ event.eventTime}} - {{
+            event.eventDate | date:'dd/MM/yyyy' }}</span></p>
+        <p class="event-location"><img src="location-white.png" class="event-location-img" /> <span>{{ event.location
+            }}</span> </p>
+        <p>{{ event.description }}</p>
+        <p><strong>Type :</strong> {{ event.type }}</p>
+        <p><strong>Participants :</strong> {{ event.participantCount || 0 }} / {{event.maxcapacity}}</p>
+        <!-- Only show status if NOT ACTIVE -->
+        <ng-container *ngIf="event.status !== 'ACTIVE'">
+          <p class="event-status" [ngClass]="{
+       'status-canceled': event.status === 'CANCELED',
+       'status-ended': event.status === 'ENDED'
+     }">
+            <strong>
+              <span *ngIf="event.status === 'CANCELED'">❌ CANCELED</span>
+              <span *ngIf="event.status === 'ENDED'">✔️ ENDED</span>
+            </strong>
+          </p>
+        </ng-container>
+
+
+          <!-- Floating Edit Icon at bottom-right -->
+           <!---stop propagation to prevent go to detail event when click on edit button !!-->
+  <button mat-mini-fab *ngIf="authService.isLoggedIn() && authService.isOrganizer() && event.Organizerofevent && event.status=='ACTIVE'" color="accent" class="edit-fab" aria-label="Modifier l'événement" (click)="$event.stopPropagation()" [routerLink]="['/update', event.id]"  (click)="undefined">
+  <mat-icon>edit</mat-icon>
+</button>
+
+
+
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button>Voir détail</button>
+      </mat-card-actions>
+
+    
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,162 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>{{ event.title || '' }}</mat-card-title>
+    <mat-card-subtitle>{{ event.eventDate | date:'fullDate' }} - {{event.eventTime}} – {{ event.location
+      }}</mat-card-subtitle>
+  </mat-card-header>
+
+  <mat-card-content>
+    <p>{{ event.description }}</p>
+    <p><strong>Type :</strong> {{ event.type }}</p>
+    <p *ngIf="isOrganizerOfEvent() && authService.isOrganizer() && authService.isLoggedIn()"><strong>Created in :
+      </strong> {{event.createdAt}}</p>
+    <p *ngIf="isOrganizerOfEvent() && authService.isOrganizer() && authService.isLoggedIn()" style="    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 12px;"
+    ><strong style="display: flex;"><mat-icon>visibility</mat-icon> </strong>
+      {{event.views}}</p>
+    <p *ngIf="isOrganizerOfEvent() && authService.isOrganizer() && authService.isLoggedIn()"><strong>Statut : </strong>
+      {{event.status}}</p>
+    <p>
+      <strong>Participants :</strong>
+      <span [class.full]="isFull()">
+        {{ getParticipantCount() }} / {{ getMaxCapacity() }}
+        <span *ngIf="isFull()"> (Complet !)</span>
+      </span>
+    </p>
+
+    <div *ngIf="authService.isLoggedIn() && authService.isOrganizer() && isOrganizerOfEvent()"
+      class="participants-section">
+
+      <mat-accordion>
+
+        <!-- ACCEPTED -->
+        <mat-expansion-panel class="accepted-header">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon>check_circle</mat-icon>
+              Acceptés ({{ acceptedParticipants.length }})
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <mat-list dense>
+            <mat-list-item *ngFor="let p of acceptedParticipants">
+              <mat-icon matListItemIcon color="primary">person</mat-icon>
+              <div class="user-info" matListItemTitle>
+                <div class="user-name">{{ p.username }} </div>
+                <div class="user-email">{{ p.email }}</div>
+              </div>
+            </mat-list-item>
+            <div class="empty-state" *ngIf="acceptedParticipants.length === 0">
+              Aucun participant accepté pour le moment.
+            </div>
+          </mat-list>
+        </mat-expansion-panel>
+
+        <!-- PENDING -->
+        <mat-expansion-panel class="pending-header">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon>schedule</mat-icon>
+              En attente ({{ pendingParticipants.length }})
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <mat-list dense>
+            <mat-list-item *ngFor="let p of pendingParticipants">
+              <mat-icon matListItemIcon color="warn">person</mat-icon>
+              <div class="user-info" matListItemTitle>
+                <div class="user-name">{{ p.username }}</div>
+                <div class="user-email">{{ p.email }} {{p.registeredAt}} {{p.status}}</div>
+              </div>
+              <div class="pending-actions" matListItemMeta>
+                <button mat-icon-button class="approve-btn" (click)="AcceptParticipant(p)" matTooltip="Accepter">
+                  <mat-icon>check</mat-icon>
+                </button>
+                <button mat-icon-button class="reject-btn" (click)="RefuseParticipant(p)" matTooltip="Refuser">
+                  <mat-icon>close</mat-icon>
+                </button>
+              </div>
+            </mat-list-item>
+            <div class="empty-state" *ngIf="pendingParticipants.length === 0">
+              Aucune demande en attente.
+            </div>
+          </mat-list>
+        </mat-expansion-panel>
+
+        <!-- REFUSED -->
+        <mat-expansion-panel class="refused-header">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon>cancel</mat-icon>
+              Refusés ({{ refusedParticipants.length }})
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+
+          <mat-list dense>
+            <mat-list-item *ngFor="let p of refusedParticipants">
+              <mat-icon matListItemIcon color="accent">person</mat-icon>
+              <div class="user-info" matListItemTitle>
+                <div class="user-name">{{ p.username }}</div>
+                <div class="user-email">{{ p.email }}</div>
+              </div>
+            </mat-list-item>
+            <div class="empty-state" *ngIf="refusedParticipants.length === 0">
+              Aucun participant refusé.
+            </div>
+          </mat-list>
+        </mat-expansion-panel>
+
+      </mat-accordion>
+    </div>
+    <div class="media-section" *ngIf="hasMedia()" ><!--*ngIf="event.media.length"-->
+      <h3>Médias</h3>
+      <div class="media-grid">
+        <!-- On boucle une seule fois sur tous les médias -->
+        <div *ngFor="let media of event.medias" class="media-item">
+          <p class="media-title">{{media.title}}</p>
+          <!-- Si c'est une image → on l'affiche -->
+          <img *ngIf="isImage(media.url)" [src]="getFullUrl(media.url)" width="180px" alt="Média de l'événement" class="event-image"
+            (click)="openLightbox(media.url)" style="cursor: pointer;">
+
+          <!-- Si ce n'est PAS une image → bouton télécharger -->
+          <div *ngIf="!isImage(media.url)" class="download-item">
+            <a [href]="getFullUrl(media.url)" download class="download-link">
+              <mat-icon>download</mat-icon>
+              <span>{{ getFileName(media.url) }}</span>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <button mat-raised-button class="registration-button"
+      *ngIf="authService.isLoggedIn() && !isOrganizerOfEvent() && !authService.isOrganizer() && event.status === 'ACTIVE'"
+      [class.registered]="RegistrationStatus === 'REGISTERED'" [class.pending]="RegistrationStatus === 'ENATTEND'"
+      [class.refused]="RegistrationStatus === 'REFUSED'" (click)="toggleRegistration()" [disabled]="isDisabled">
+
+      @if (isLoading) {
+      <mat-spinner diameter="25"></mat-spinner>
+      } @else {
+      <mat-icon class="icon-left">{{ currentIcon }}</mat-icon>
+      }
+      <span>{{ currentText }}</span>
+      <!-- Texte + icône selon le statut -->
+
+    </button>
+    <button mat-mini-fab
+      *ngIf="authService.isLoggedIn() && authService.isOrganizer() && isOrganizerOfEvent() && event.status=='ACTIVE' "
+      color="accent" class="edit-fab" aria-label="Modifier l'événement" (click)="$event.stopPropagation()"
+      [routerLink]="['/update', event.id]" (click)="undefined">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-mini-fab
+      *ngIf="authService.isLoggedIn() && authService.isOrganizer() && isOrganizerOfEvent() && event.status=='ACTIVE'"
+      color="warn" class="edit-fab" id="cancel-event" aria-label="cancel l'événement" (click)="$event.stopPropagation()"
+      (click)="cancelEvent()">
+      <mat-icon>delete_forever</mat-icon>
+    </button>
+  </mat-card-content>
+</mat-card>

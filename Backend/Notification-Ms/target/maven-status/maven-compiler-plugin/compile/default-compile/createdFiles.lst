@@ -1,0 +1,6 @@
+com\eventmanagementisii\notification\NotificationServiceApplication.class
+com\eventmanagementisii\notification\client\EventClient$EventDto.class
+com\eventmanagementisii\notification\controller\InternalNotificationController.class
+com\eventmanagementisii\notification\client\EventClient.class
+com\eventmanagementisii\notification\client\RegistrationClient$RegistrationDto.class
+com\eventmanagementisii\notification\client\RegistrationClient.class

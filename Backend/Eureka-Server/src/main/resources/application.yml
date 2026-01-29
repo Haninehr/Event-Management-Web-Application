@@ -1,0 +1,9 @@
+server:
+  port: 8761  # Default Eureka port
+
+eureka:
+  client:
+    register-with-eureka: false  # Eureka server doesn't register itself
+    fetch-registry: false
+  server:
+    enable-self-preservation: false  # For development; disable in prod if needed

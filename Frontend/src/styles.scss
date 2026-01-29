@@ -1,0 +1,224 @@
+html
+html, body { height: 100%; user-select: none;}
+//body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background: #f5f5f5; }
+*{box-sizing:border-box}
+body{font-family:Inter,system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial; margin:0; background: radial-gradient(circle at 10% 10%, #071137, #02030a 60%); color:#eaf2ff; min-height:100vh;}
+.spacer { flex: 1 1 auto; }
+
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+}
+
+
+.login-container, .signup-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+}
+
+.events-container {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.event-card {
+  margin: 16px 0;
+  cursor: pointer;
+  padding: 25px;
+    margin: 0px 50px 0px 50px;
+  transition: transform 0.2s;
+  box-shadow: 0 10px 17px rgba(255, 255, 255, 0.151);
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 17px rgba(255, 255, 255, 0.2);
+  }
+}
+
+.notificationbell {
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
+  z-index: 1000;
+}
+
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+ 
+::-webkit-scrollbar-thumb {
+  background: #4d4d4d;
+  border-radius: 20px;
+}
+
+::-webkit-scrollbar-track {
+  background: #ffffff;
+  border-radius: 20px;
+}
+
+
+/* Snackbar success - green */
+.success-snackbar {
+  background-color: #4caf50 !important; /* green */
+  color: white !important;
+  text-align: center;
+  font-weight: 800;
+  letter-spacing: 0.75px;
+}
+
+/* Snackbar warning - orange */
+.warning-snackbar {
+  background-color: #ff9800 !important; /* orange */
+  color: white !important;
+  text-align: center;
+  font-weight: 800;
+  letter-spacing: 0.75px;
+}
+
+/* Snackbar error - red */
+.error-snackbar {
+  background-color: #f44336 !important; /* red */
+  
+  text-align: center;
+  font-weight: 800;
+  letter-spacing: 0.75px;
+  color: white !important;
+}
+
+/* Optional: center text, better button style, etc. */
+.success-snackbar .mat-mdc-snack-bar-action,
+.warning-snackbar .mat-mdc-snack-bar-action,
+.error-snackbar .mat-mdc-snack-bar-action {
+  color: white !important;
+  font-weight: 800 !important;
+}
+
+
+.warning-snackbar:hover .mat-mdc-snack-bar-actions{
+background-color: transparent !important;
+font-weight: 900 !important;
+}
+
+
+.mat-calendar-body-cell{
+  color: white !important;
+  font-weight: 600;
+}
+
+.mat-calendar {
+  border: 2px solid white !important;
+  border-radius: 10px !important;
+}
+
+
+
+
+    .loading-spinner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  text-align: center;
+  min-height: 300px;
+
+  p {
+    margin-top: 20px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #8e8d8d;
+  }
+}
+
+
+.loader-p{
+        height: 400px;
+    width: 100%;
+    justify-content: center !important;
+    display: grid !important;
+    align-items: center !important;
+}
+
+.loader {
+  align-self: center;
+  width: 99px;
+  position: relative;
+  text-indent: -9999em;
+}
+
+.ball {
+  border-radius: 50%;
+  background: white;
+  width: 15px;
+  height: 15px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-animation: loading 1.2s linear infinite;
+          animation: loading 1.2s linear infinite;
+}
+.ball:nth-of-type(2) {
+  -webkit-animation-delay: 0.4s;
+          animation-delay: 0.4s;
+}
+.ball:nth-of-type(3) {
+  -webkit-animation-delay: 0.8s;
+          animation-delay: 0.8s;
+}
+
+
+
+@-webkit-keyframes loading {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  20% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  40% {
+    transform: translate3d(33px, 0, 0);
+  }
+  60% {
+    transform: translate3d(66px, 0, 0);
+  }
+  80% {
+    transform: translate3d(99px, 0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(99px, 0, 0) scale(0.5);
+    opacity: 0;
+  }
+}
+
+@keyframes loading {
+  0% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  20% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  40% {
+    transform: translate3d(33px, 0, 0);
+  }
+  60% {
+    transform: translate3d(66px, 0, 0);
+  }
+  80% {
+    transform: translate3d(99px, 0, 0);
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(99px, 0, 0) scale(0.5);
+    opacity: 0;
+  }
+}

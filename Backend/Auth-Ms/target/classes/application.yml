@@ -1,0 +1,32 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: authentification-service
+ 
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/authdb?useSSL=false&serverTimezone=UTC
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: ""   # Default XAMPP MySQL password is empty unless you changed it
+
+  jpa:
+    hibernate:
+      ddl-auto: update   # create, update, validate, none
+    show-sql: true
+    database-platform: org.hibernate.dialect.MySQLDialect
+
+jwt:
+  secret: 2XZCFpmx0gac8Obn7LVsXtxpT36eCKVBGEbXg3luFuN2
+  expiration: 720000
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true

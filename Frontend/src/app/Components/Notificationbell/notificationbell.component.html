@@ -1,0 +1,46 @@
+<div class="only-notif-bell">
+  <button mat-fab color="warn" class="notificationbell"
+          [matBadge]="unreadCount" matBadgeColor="accent"
+          [matMenuTriggerFor]="menu">
+    <mat-icon>notifications</mat-icon>
+  </button>
+
+  <mat-menu #menu="matMenu">
+    <div class="notification-header">
+      <h3>Notifications</h3>
+    </div>
+    
+    <ng-container *ngFor="let notif of notifications">
+      <button mat-menu-item
+              (click)="markAsRead(notif.id , notif.eventid)"
+              class="notification-item"
+              [class.unread]="!notif.isread"
+              [class.type-reminder]="notif.type === 'REMINDER'"
+              [class.type-update]="notif.type === 'UPDATE'"
+              [class.type-refuse]="notif.type.toUpperCase().includes('REFUSE')"
+              [class.type-accept]="notif.type.toUpperCase().includes('ACCEPT')"
+              [class.type-registration]="notif.type === 'REGISTRATIONshgdhj'"
+              [class.type-default]="notif.type !== 'REMINDER' && notif.type !== 'REGISTRATION' && notif.type!='UPDATE' && notif.type !== 'REGISTRATION_Refuse' && notif.type!=='REGISTRATION_accept' ">
+
+        <mat-icon *ngIf="notif.type === 'REMINDER'">notification_important</mat-icon>
+        <mat-icon *ngIf="notif.type === 'UPDATE'">update</mat-icon>
+        <mat-icon *ngIf="notif.type === 'REGISTRATION_accept'">person_add</mat-icon>
+        <mat-icon *ngIf="notif.type=='REGISTRATION_Refuse'">cancel</mat-icon>
+        <mat-icon *ngIf="notif.type !== 'REMINDER' && notif.type !== 'REGISTRATION_Refuse' && notif.type!=='REGISTRATION_accept' && notif.type!='UPDATE'">info</mat-icon>
+
+        <div class="notif-content">
+          <span class="notif-title">{{ notif.title }}</span>
+          <p class="notif-message">{{ notif.message }}</p>
+          <p class="notif-message">Type : {{ notif.type }}</p>
+        </div>
+      </button>
+    </ng-container>
+
+    <button mat-menu-item class="no-notifications" *ngIf="notifications.length === 0">
+      Aucune Nouvelle notification
+    </button>
+    <button mat-menu-item class="All-notifications" [routerLink]="['/notifications']"> 
+      Voir tous les notifications
+    </button>
+  </mat-menu>
+</div>

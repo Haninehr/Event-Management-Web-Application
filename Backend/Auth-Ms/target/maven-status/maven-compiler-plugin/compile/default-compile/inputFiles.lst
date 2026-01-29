@@ -1,0 +1,11 @@
+C:\Users\besto\Documents\Master2\2025-26\Ing-Web\Project-Official\Backend\Auth-Ms\src\main\java\com\eventmanagementisii\authentification\AuthServiceApplication.java
+C:\Users\besto\Documents\Master2\2025-26\Ing-Web\Project-Official\Backend\Auth-Ms\src\main\java\com\eventmanagementisii\authentification\controller\AuthenticationController.java
+C:\Users\besto\Documents\Master2\2025-26\Ing-Web\Project-Official\Backend\Auth-Ms\src\main\java\com\eventmanagementisii\authentification\controller\InternalUserController.java
+C:\Users\besto\Documents\Master2\2025-26\Ing-Web\Project-Official\Backend\Auth-Ms\src\main\java\com\eventmanagementisii\authentification\entity\Role.java
+C:\Users\besto\Documents\Master2\2025-26\Ing-Web\Project-Official\Backend\Auth-Ms\src\main\java\com\eventmanagementisii\authentification\entity\User.java
+C:\Users\besto\Documents\Master2\2025-26\Ing-Web\Project-Official\Backend\Auth-Ms\src\main\java\com\eventmanagementisii\authentification\repository\UserRepository.java
+C:\Users\besto\Documents\Master2\2025-26\Ing-Web\Project-Official\Backend\Auth-Ms\src\main\java\com\eventmanagementisii\authentification\security\AuthEntryPointJwt.java
+C:\Users\besto\Documents\Master2\2025-26\Ing-Web\Project-Official\Backend\Auth-Ms\src\main\java\com\eventmanagementisii\authentification\security\AuthTokenFilter.java
+C:\Users\besto\Documents\Master2\2025-26\Ing-Web\Project-Official\Backend\Auth-Ms\src\main\java\com\eventmanagementisii\authentification\security\JwtUtil.java
+C:\Users\besto\Documents\Master2\2025-26\Ing-Web\Project-Official\Backend\Auth-Ms\src\main\java\com\eventmanagementisii\authentification\security\WebSecurityConfig.java
+C:\Users\besto\Documents\Master2\2025-26\Ing-Web\Project-Official\Backend\Auth-Ms\src\main\java\com\eventmanagementisii\authentification\service\AuthService.java

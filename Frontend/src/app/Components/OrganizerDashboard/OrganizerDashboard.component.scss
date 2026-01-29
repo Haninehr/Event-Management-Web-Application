@@ -1,0 +1,161 @@
+
+.Organisateur-Dashboard{
+
+    padding: 15px 20px;
+
+    .row{
+            display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0px;
+    height: 500px;
+    }
+    .row-70{
+        width: 70%;
+
+
+        h2{
+            text-align: center;
+        }
+    }
+    .row-30{
+        width: 30%;
+        height: inherit;
+    border-left: 5px solid white;
+    padding: 20px;
+
+    .row-stats{
+        display: grid;
+        gap: 25px;
+    }
+
+    .row-stats .stat{
+        cursor: pointer;
+        display: flex;
+    align-items: center;
+    padding: 15px 10px;
+    border-radius: 8px;
+    gap: 15px;
+    font-weight: 700;
+    border: 2px solid white;
+    justify-content: space-between;
+
+    }
+    .row-stats .stat.upcoming:hover{
+        border-color: yellow;
+        color: yellow;
+    }
+    .row-stats .stat.canceled:hover{
+        border-color: rgb(255, 89, 0);
+        color:rgb(255, 89, 0) ;
+    }
+
+    .row-stats .stat.totale:hover{
+        border-color: rgb(0, 255, 115);
+        color:rgb(0, 255, 115) ;
+    }
+
+    .row-stats .stat.average-participation:hover{
+        border-color: violet;
+        color: violet;
+    }
+
+
+    .row-stats .stat .number{
+        font-weight: 900;
+        font-size: 20px;
+    }
+    }
+.row-70 .events-grid{
+        max-height: 450px;
+    margin: 10px 15px;
+    padding: 15px 20px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+
+
+.events-no-available{
+        height: 400px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+}
+
+
+
+.edit-fab {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+
+  color: white;
+    border-color: transparent;
+    background: transparent;
+    cursor: pointer;
+}
+
+
+.edit-fab:hover {
+  transform: scale(1.15);
+  color: #18c29c;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.event-datetime{
+    
+    width: 100%;
+    margin: 15px 0px;
+    margin-bottom: 0px;
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    span{
+        letter-spacing: 0.9px;
+    font-size: 21px;
+    }
+
+    .event-datetime-img {
+    width: 28px;
+    margin-right: 5px;
+}
+
+}
+
+
+.event-location {
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    margin: 15px 0px;
+
+
+    span{
+        letter-spacing: 0.9px;
+    font-size: 21px;
+    }
+
+    .event-location-img {
+    width: 28px;
+    margin-right: 5px;
+}
+}
+
+.event-card {
+mat-card-title {
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: 0.95px;
+}
+}
+
+.event-discription{
+    font-size: 18px;
+}
